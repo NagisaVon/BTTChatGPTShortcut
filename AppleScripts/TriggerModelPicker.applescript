@@ -6,26 +6,15 @@ on triggerModelPicker(targetModelName)
 		tell process "ChatGPT"
 			set frontmost to true
 			
-			-- ---------- Step 1: Find the main ChatGPT window ----------
-			set mainWindow to missing value
-			set chatDialogWindow to missing value
-			repeat with w in windows
-				try
-					set sr to subrole of w
-					if sr is "AXStandardWindow" then
-						set mainWindow to w
-					else if sr is "AXSystemDialog" then
-						set chatDialogWindow to w
-					end if
-				end try
-			end repeat
-			if mainWindow is missing value then return missing value
-			log "found mainWindow"
+			-- ---------- Step 1: Getting Window  ----------
+			set focusedWin to my getFocusedWindow()
+			if focusedWin is missing value then return missing value
+			log "found focused window"
 			-- ---------- Step 2: Click the Options button ----------
 			set optionsBtn to missing value
 			set targetGroup to missing value
 			try
-				set targetGroup to group 2 of splitter group 1 of group 1 of mainWindow
+				set targetGroup to my getMainUIGroup(focusedWin)
 				if targetGroup is not missing value then log "found targetGroup"
 				set optionsBtn to item 1 of (buttons of targetGroup whose value of attribute "AXAttributedDescription" is "Options")
 			end try
@@ -71,3 +60,38 @@ on triggerModelPicker(targetModelName)
 		end tell
 	end tell
 end triggerModelPicker
+
+on getFocusedWindow()
+    tell application "System Events"
+        if not (exists process "ChatGPT") then return missing value
+        tell process "ChatGPT"
+            set frontmost to true
+            set focusedWin to missing value
+            set focusedWin to value of attribute "AXFocusedWindow"
+            return focusedWin
+        end tell
+    end tell
+end getFocusedWindow
+
+
+on getMainUIGroup(focusedWin)
+	tell application "System Events"
+        if not (exists process "ChatGPT") then return missing value
+        tell process "ChatGPT"
+			try
+				set sr to subrole of focusedWin
+				if sr is "AXStandardWindow" then
+					set mainUIGroup to group 2 of splitter group 1 of group 1 of focusedWin
+					log "Targeting standard window"
+					return mainUIGroup
+				else if sr is "AXSystemDialog" then
+					set mainUIGroup to group 1 of focusedWin
+					log "Targeting chat dialog window"
+					return mainUIGroup
+				end if
+			on error
+				return missing value
+			end try
+		end tell
+	end tell
+end getMainUIGroup
