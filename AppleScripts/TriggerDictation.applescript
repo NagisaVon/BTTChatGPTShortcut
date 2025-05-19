@@ -24,16 +24,14 @@ on toggleTranscription()
 				set endBtnChatBar to my findButtonByAXAttributedDescription(chatBarGroup, "Confirm")
 				-- Alway prefer the chat bar so if the button is found in the chat bar, it will override the main window button
 				if startBtnChatBar is not missing value then set startBtn to startBtnChatBar
-				if endBtnChatBar is not missing value then 
-                    set endBtn to endBtnChatBar
-                    set startBtn to missing value -- should not click the start button in the main window if the chat bar is open
-                end if
+				if endBtnChatBar is not missing value then set endBtn to endBtnChatBar
 			end try
 			
 			-- ---------- Step 3: Perform the action ----------
-			if (startBtn is not missing value) then
+			-- always prefer end first, ChatGPT has a bug where you click start at the a window when the other window is already started dicatating
+			if (endBtn is not missing value) then
 				perform action "AXPress" of startBtn
-			else if (endBtn is not missing value) then
+			else if (startBtn is not missing value) then
 				perform action "AXPress" of endBtn
 			else if true then
 				log "no matching buttons found, exiting"
