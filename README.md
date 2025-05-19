@@ -11,4 +11,5 @@ Bind shortcuts to the "Start Transcription" button of the macOS ChatGPT app.
 
 - [ ] Main window name could change it seems, not sure how to reproduce this
 - [ ] Add model switching using command-1, command-2, etc.
+- [ ] ctrl-c interupt request, ctrl-r retry
 - [ ] 
