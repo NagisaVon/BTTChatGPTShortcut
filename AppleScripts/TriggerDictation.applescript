@@ -30,9 +30,9 @@ on toggleTranscription()
 			-- ---------- Step 3: Perform the action ----------
 			-- always prefer end first, ChatGPT has a bug where you click start at the a window when the other window is already started dicatating
 			if (endBtn is not missing value) then
-				perform action "AXPress" of startBtn
-			else if (startBtn is not missing value) then
 				perform action "AXPress" of endBtn
+			else if (startBtn is not missing value) then
+				perform action "AXPress" of startBtn
 			else if true then
 				log "no matching buttons found, exiting"
 			end if
