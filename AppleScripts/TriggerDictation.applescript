@@ -9,7 +9,6 @@ on toggleTranscription()
 			set endBtn to missing value
 			-- ---------- Step 1: Look in the main window ----------
 			try
-				-- TODO: Main window name could change it seems, not sure how to reproduce this
 				set mainWindowGroup to group 2 of splitter group 1 of group 1 of window "ChatGPT"
 				-- log "Found Main Window Group"
 				set startBtnMain to my findButtonByAXAttributedDescription(mainWindowGroup, "Dictation")
