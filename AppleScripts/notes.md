@@ -48,11 +48,19 @@ log a
 
 ## get a specific attribute:
 
-use `value of attribute` to get the value of a specific attribute
+use `value of attribute` to get the value of a specific attribute,
+remember AXAttributedDescription is a special case, can only be accessed by using the `whose` keyword
 ```applescript
 set a to (value of attribute "AXFoo" of obj) as text
 log a
 ```
+
+for example, to get the `AXAttributedDescription` of a button, you can use:
+```applescript
+set someTargetGroup to ...
+set btn to item 1 of (buttons of someTargetGroup whose value of attribute "AXAttributedDescription" contains "SOMETHING")
+```
+the buttons could be replace with any other UI element type, like `UI elements` `popovers`, `groups`, etc.
 
 ## to list all object at this level:
 
