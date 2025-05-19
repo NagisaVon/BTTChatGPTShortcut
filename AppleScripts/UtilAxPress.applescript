@@ -1,3 +1,5 @@
+-- Example Codeblock for triggering an button press in a macOS app using AppleScript
+-- AXPress is better than click
 
 tell application "System Events"
 	tell process "ChatGPT"
