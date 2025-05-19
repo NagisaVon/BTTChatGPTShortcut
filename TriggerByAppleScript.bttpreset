@@ -1,0 +1,48 @@
+[
+  {
+    "BTTActionCategory" : 0,
+    "BTTLastUpdatedAt" : 1747630941.2856231,
+    "BTTTriggerType" : 0,
+    "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+    "BTTUUID" : "3E229687-35B6-4026-91B3-9212E40F9709",
+    "BTTPredefinedActionType" : 366,
+    "BTTPredefinedActionName" : "Empty Placeholder",
+    "BTTAdditionalConfiguration" : "1179658",
+    "BTTKeyboardShortcutKeyboardType" : 13623,
+    "BTTTriggerOnDown" : 1,
+    "BTTLayoutIndependentChar" : "⿬",
+    "BTTEnabled" : 1,
+    "BTTEnabled2" : 1,
+    "BTTShortcutKeyCode" : 15,
+    "BTTShortcutModifierKeys" : 1179648,
+    "BTTOrder" : 1,
+    "BTTAutoAdaptToKeyboardLayout" : 0,
+    "BTTAdditionalActions" : [
+      {
+        "BTTActionCategory" : 0,
+        "BTTLastUpdatedAt" : 1747634112.1710801,
+        "BTTTriggerParentUUID" : "3E229687-35B6-4026-91B3-9212E40F9709",
+        "BTTIsPureAction" : true,
+        "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+        "BTTUUID" : "34E55107-FD3F-452E-84D8-8B5F5EF2C7BD",
+        "BTTPredefinedActionType" : 195,
+        "BTTPredefinedActionName" : "Run Apple Script (async in background)",
+        "BTTAdditionalActionData" : {
+          "BTTScriptType" : 0,
+          "BTTAppleScriptString" : "on toggleTranscription()\r\ttell application \"System Events\"\r\t\tif not (exists process \"ChatGPT\") then return missing value\r\t\ttell process \"ChatGPT\"\r\t\t\t-- Bring ChatGPT to front so AX API can see its UI tree\r\t\t\tset frontmost to true\r\t\t\t\r\t\t\tset startBtn to missing value\r\t\t\tset endBtn to missing value\r\t\t\t-- ---------- Step 1: Look in the main window ----------\r\t\t\ttry\r\t\t\t\tset mainWindowGroup to group 2 of splitter group 1 of group 1 of window \"ChatGPT\"\r\t\t\t\t-- log \"Found Main Window Group\"\r\t\t\t\tset startBtnMain to my findButtonByAXAttributedDescription(mainWindowGroup, \"Dictation\")\r\t\t\t\tset endBtnMain to my findButtonByAXAttributedDescription(mainWindowGroup, \"Confirm\")\r\t\t\t\tif startBtnMain is not missing value then set startBtn to startBtnMain\r\t\t\t\tif endBtnMain is not missing value then set endBtn to endBtnMain\r\t\t\tend try\r\t\t\t-- ---------- Step 2: Look in the chat bar window ----------\r\t\t\ttry\r\t\t\t\tset chatBarGroup to group 1 of window 1\r\t\t\t\t-- log \"Found Chat Bar Group\"\r\t\t\t\tset startBtnChatBar to my findButtonByAXAttributedDescription(chatBarGroup, \"Dictation\")\r\t\t\t\tset endBtnChatBar to my findButtonByAXAttributedDescription(chatBarGroup, \"Confirm\")\r\t\t\t\t-- Alway prefer the chat bar so if the button is found in the chat bar, it will override the main window button\r\t\t\t\tif startBtnChatBar is not missing value then set startBtn to startBtnChatBar\r\t\t\t\tif endBtnChatBar is not missing value then\r\t\t\t\t\tset endBtn to endBtnChatBar\r\t\t\t\t\tset startBtn to missing value -- should not click the start button in the main window if the chat bar is open\r\t\t\t\tend if\r\t\t\tend try\r\t\t\t\r\t\t\t-- ---------- Step 3: Perform the action ----------\r\t\t\tif (startBtn is not missing value) then\r\t\t\t\tperform action \"AXPress\" of startBtn\r\t\t\telse if (endBtn is not missing value) then\r\t\t\t\tperform action \"AXPress\" of endBtn\r\t\t\telse if true then\r\t\t\t\t-- log \"no matching buttons found, exiting\"\r\t\t\tend if\r\t\tend tell\r\tend tell\rend toggleTranscription\r\r\ron findButtonByAXAttributedDescription(targetGroup, desiredDesc)\r\ttell application \"System Events\"\r\t\ttell process \"ChatGPT\"\r\t\t\tset matchingButtons to missing value\r\t\t\ttry\r\t\t\t\tset matchingButtons to (buttons of targetGroup whose value of attribute \"AXAttributedDescription\" contains desiredDesc)\r\t\t\tend try\r\t\t\t-- log matchingButtons\r\t\t\tif matchingButtons is not {} and matchingButtons is not missing value then return item 1 of matchingButtons\r\t\tend tell\r\tend tell\r\t\r\treturn missing value\rend findButtonByAXAttributedDescription\r\r\rtoggleTranscription()",
+          "BTTAppleScriptUsePath" : false,
+          "BTTAppleScriptRunInBackground" : true,
+          "SelectedAction" : 195,
+          "BTTScriptLocation" : 0
+        },
+        "BTTInlineAppleScript" : "on toggleTranscription()\r\ttell application \"System Events\"\r\t\tif not (exists process \"ChatGPT\") then return missing value\r\t\ttell process \"ChatGPT\"\r\t\t\t-- Bring ChatGPT to front so AX API can see its UI tree\r\t\t\tset frontmost to true\r\t\t\t\r\t\t\tset startBtn to missing value\r\t\t\tset endBtn to missing value\r\t\t\t-- ---------- Step 1: Look in the main window ----------\r\t\t\ttry\r\t\t\t\tset mainWindowGroup to group 2 of splitter group 1 of group 1 of window \"ChatGPT\"\r\t\t\t\t-- log \"Found Main Window Group\"\r\t\t\t\tset startBtnMain to my findButtonByAXAttributedDescription(mainWindowGroup, \"Dictation\")\r\t\t\t\tset endBtnMain to my findButtonByAXAttributedDescription(mainWindowGroup, \"Confirm\")\r\t\t\t\tif startBtnMain is not missing value then set startBtn to startBtnMain\r\t\t\t\tif endBtnMain is not missing value then set endBtn to endBtnMain\r\t\t\tend try\r\t\t\t-- ---------- Step 2: Look in the chat bar window ----------\r\t\t\ttry\r\t\t\t\tset chatBarGroup to group 1 of window 1\r\t\t\t\t-- log \"Found Chat Bar Group\"\r\t\t\t\tset startBtnChatBar to my findButtonByAXAttributedDescription(chatBarGroup, \"Dictation\")\r\t\t\t\tset endBtnChatBar to my findButtonByAXAttributedDescription(chatBarGroup, \"Confirm\")\r\t\t\t\t-- Alway prefer the chat bar so if the button is found in the chat bar, it will override the main window button\r\t\t\t\tif startBtnChatBar is not missing value then set startBtn to startBtnChatBar\r\t\t\t\tif endBtnChatBar is not missing value then\r\t\t\t\t\tset endBtn to endBtnChatBar\r\t\t\t\t\tset startBtn to missing value -- should not click the start button in the main window if the chat bar is open\r\t\t\t\tend if\r\t\t\tend try\r\t\t\t\r\t\t\t-- ---------- Step 3: Perform the action ----------\r\t\t\tif (startBtn is not missing value) then\r\t\t\t\tperform action \"AXPress\" of startBtn\r\t\t\telse if (endBtn is not missing value) then\r\t\t\t\tperform action \"AXPress\" of endBtn\r\t\t\telse if true then\r\t\t\t\t-- log \"no matching buttons found, exiting\"\r\t\t\tend if\r\t\tend tell\r\tend tell\rend toggleTranscription\r\r\ron findButtonByAXAttributedDescription(targetGroup, desiredDesc)\r\ttell application \"System Events\"\r\t\ttell process \"ChatGPT\"\r\t\t\tset matchingButtons to missing value\r\t\t\ttry\r\t\t\t\tset matchingButtons to (buttons of targetGroup whose value of attribute \"AXAttributedDescription\" contains desiredDesc)\r\t\t\tend try\r\t\t\t-- log matchingButtons\r\t\t\tif matchingButtons is not {} and matchingButtons is not missing value then return item 1 of matchingButtons\r\t\tend tell\r\tend tell\r\t\r\treturn missing value\rend findButtonByAXAttributedDescription\r\r\rtoggleTranscription()",
+        "BTTKeyboardShortcutKeyboardType" : 0,
+        "BTTEnabled" : 1,
+        "BTTEnabled2" : 1,
+        "BTTShortcutKeyCode" : -1,
+        "BTTOrder" : 5,
+        "BTTAutoAdaptToKeyboardLayout" : 0
+      }
+    ]
+  }
+]
