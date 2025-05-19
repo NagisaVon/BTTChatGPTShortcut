@@ -1,3 +1,5 @@
+triggerModelPicker("o3")
+
 on triggerModelPicker(targetModelName)
 	tell application "System Events"
 		if not (exists process "ChatGPT") then return missing value
@@ -69,5 +71,3 @@ on triggerModelPicker(targetModelName)
 		end tell
 	end tell
 end triggerModelPicker
-
-triggerModelPicker("o3")
