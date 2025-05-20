@@ -1,5 +1,7 @@
 # AppleScript Notes
 
+- Logs really impact performance, don't forget to remove them when copy to production
+
 ## starter template
 ```applescript
 tell application "System Events"
