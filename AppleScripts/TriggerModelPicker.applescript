@@ -4,7 +4,7 @@ on triggerModelPicker(targetModelName)
 	tell application "System Events"
 		if not (exists process "ChatGPT") then return missing value
 		tell process "ChatGPT"
-			set frontmost to true
+			-- set frontmost to true
 			
 			-- ---------- Step 1: Getting Window  ----------
 			set focusedWin to my getFocusedWindow()
@@ -65,7 +65,7 @@ on getFocusedWindow()
     tell application "System Events"
         if not (exists process "ChatGPT") then return missing value
         tell process "ChatGPT"
-            set frontmost to true
+            -- set frontmost to true
             set focusedWin to missing value
             set focusedWin to value of attribute "AXFocusedWindow"
             return focusedWin

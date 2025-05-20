@@ -3,7 +3,7 @@ on toggleTranscription()
 		if not (exists process "ChatGPT") then return missing value
 		tell process "ChatGPT"
 			-- Bring ChatGPT to front so AX API can see its UI tree
-			set frontmost to true
+			-- set frontmost to true
 			
 			set startBtn to missing value
 			set endBtn to missing value
